@@ -1,0 +1,133 @@
+#day 1 task 1#
+#dart#
+
+void main() {
+  List inputList = [1, 2, 3, 4];
+  List mappedList = customMapping(inputList, (elem) => elem * 2, false);
+  
+  print(mappedList);  
+}
+ruby
+def custom_mapping(list, &block)
+  mapped_list = []
+
+  list.each do |elem|
+    transformed_value = block.call(elem)
+    
+    if !transformed_value.nil?
+      mapped_list << transformed_value
+    end
+  end
+
+  mapped_list
+end
+
+input_list = [1, 2, 3, 4]
+mapped_list = custom_mapping(input_list) { |elem| elem * 2 }
+
+puts mapped_list.inspect 
+
+#task 2#
+#dart #
+bool custom_any(List list, bool Function(dynamic) condition) {
+  for (var element in list) {
+    if (condition(element)) {
+      return true;
+    }
+  }
+  return false;
+}
+
+void main() {
+  List inputList = [1, 2, 3, 4];
+  bool result = custom_any(inputList, (elem) => elem == 2);
+  
+  print(result);  
+}
+bool custom_every(List list, bool Function(dynamic) condition) {
+  for (var element in list) {
+    if (!condition(element)) {
+      return false;
+    }
+  }
+  return true;
+}
+
+void main() {
+  List inputList = [1, 2, 3, 4];
+  bool result = custom_every(inputList, (elem) => elem == 2);
+  
+  print(result);  
+}
+bool custom_some(List list, bool Function(dynamic) condition) {
+  for (var element in list) {
+    if (condition(element)) {
+      return true;
+    }
+  }
+  return false;
+}
+
+void main() {
+  List inputList = [1, 2, 3, 4];
+  bool result = custom_some(inputList, (elem) => elem == 2);
+  
+  print(result); 
+}
+#ruby#
+def custom_any(list, &block)
+  list.any?(&block)
+end
+
+input_list = [1, 2, 3, 4]
+result = custom_any(input_list) { |elem| elem == 2 }
+
+puts result 
+def custom_every(list, &block)
+  list.all?(&block)
+end
+
+input_list = [1, 2, 3, 4]
+result = custom_every(input_list) { |elem| elem == 2 }
+
+puts result  
+def custom_some(list, &block)
+  list.any?(&block)
+end
+
+input_list = [1, 2, 3, 4]
+result = custom_some(input_list) { |elem| elem == 2 }
+
+puts result  
+#dart#
+dynamic custom_reducer(List list, dynamic Function(dynamic, dynamic) reductionFunction, dynamic initialValue) {
+  dynamic accumulator = initialValue;
+  
+  for (var element in list) {
+    accumulator = reductionFunction(accumulator, element);
+  }
+  
+  return accumulator;
+}
+
+void main() {
+  List inputList = [1, 2, 3, 4];
+  dynamic result = custom_reducer(inputList, (acc, el) => el + acc, 15);
+  
+  print(result); 
+}
+#ruby#
+def custom_reducer(list, initial_value, &reduction_function)
+  accumulator = initial_value
+
+  list.each do |element|
+    accumulator = reduction_function.call(accumulator, element)
+  end
+
+  accumulator
+end
+
+input_list = [1, 2, 3, 4]
+result = custom_reducer(input_list, 15) { |acc, el| el + acc }
+
+puts result  
